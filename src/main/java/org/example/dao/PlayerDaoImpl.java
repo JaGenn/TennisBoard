@@ -1,0 +1,54 @@
+package org.example.dao;
+
+import org.example.entity.Player;
+import org.example.exception.DataBaseOperationException;
+import org.example.exception.NotFoundException;
+import org.example.exception.PlayerAlreadyExistsException;
+import org.example.util.HibernateUtil;
+import org.hibernate.HibernateError;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
+
+import java.util.List;
+import java.util.Optional;
+
+
+public class PlayerDaoImpl implements PlyerDAO {
+
+    @Override
+    public void save(Player player) {
+        try (Session session = HibernateUtil.getSession()) {
+            session.beginTransaction();
+            session.persist(player);
+            session.getTransaction().commit();
+        } catch (ConstraintViolationException e) {
+            throw new PlayerAlreadyExistsException("Player with id " + player.getId() + " already exists in database");
+        } catch (HibernateError e) {
+            throw new DataBaseOperationException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Optional<Player> findByName(String name) {
+        String query = "FROM Player WHERE name = :paramName";
+
+        try (Session session = HibernateUtil.getSession()) {
+
+            return session.createQuery(query, Player.class)
+                    .setParameter("paramName", name).uniqueResultOptional();
+
+        } catch (HibernateException e) {
+            throw new NotFoundException("There is no player with name " + name + " in data base");
+        }
+    }
+
+//    @Override
+//    public List<Player> getAll() {
+//        try (Session session = HibernateUtil.getSession()) {
+//            return session.createQuery("from Player", Player.class).getResultList();
+//        } catch (HibernateException e) {
+//            throw new DataBaseOperationException("Data base connection error");
+//        }
+//    }
+}
