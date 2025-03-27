@@ -2,8 +2,8 @@ package org.example.util;
 
 
 import lombok.Getter;
-import org.example.entity.Match;
-import org.example.entity.Player;
+import org.example.model.entity.Match;
+import org.example.model.entity.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.entity.Player;
+import org.example.model.entity.Player;
 import org.example.exception.DataBaseOperationException;
 import org.example.exception.NotFoundException;
 import org.example.exception.PlayerAlreadyExistsException;
@@ -10,14 +10,13 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
-import java.util.List;
 import java.util.Optional;
 
 
 public class PlayerDaoImpl implements PlyerDAO {
 
     @Override
-    public void save(Player player) {
+    public Player save(Player player) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             session.persist(player);
@@ -27,16 +26,15 @@ public class PlayerDaoImpl implements PlyerDAO {
         } catch (HibernateError e) {
             throw new DataBaseOperationException(e.getMessage());
         }
+        return player;
     }
 
     @Override
     public Optional<Player> findByName(String name) {
-        String query = "FROM Player WHERE name = :paramName";
-
+        String query = "FROM Player WHERE name = :name";
         try (Session session = HibernateUtil.getSession()) {
-
             return session.createQuery(query, Player.class)
-                    .setParameter("paramName", name).uniqueResultOptional();
+                    .setParameter("name", name).uniqueResultOptional();
 
         } catch (HibernateException e) {
             throw new NotFoundException("There is no player with name " + name + " in data base");

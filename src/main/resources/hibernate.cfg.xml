@@ -13,7 +13,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="org.example.entity.Match" />
-        <mapping class="org.example.entity.Player" />
+        <mapping class="org.example.model.entity.Match" />
+        <mapping class="org.example.model.entity.Player" />
     </session-factory>
 </hibernate-configuration>

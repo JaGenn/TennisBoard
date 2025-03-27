@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.example.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "Players")
-@Getter
 @NoArgsConstructor
+@Getter
 @ToString
 public class Player {
 
@@ -25,4 +25,5 @@ public class Player {
     public Player(String name) {
         this.name = name;
     }
+
 }

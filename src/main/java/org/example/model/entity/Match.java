@@ -1,8 +1,9 @@
-package org.example.entity;
+package org.example.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.model.Score;
 
 
 @Entity
@@ -27,9 +28,19 @@ public class Match {
     @JoinColumn(name = "winner", referencedColumnName = "id", nullable = false)
     private Player winner;
 
+    @Transient
+    private Score score;
+
     public Match(Player player1, Player player2, Player winner) {
         this.player1 = player1;
         this.player2 = player2;
         this.winner = winner;
+        this.score = new Score();
+    }
+
+    public Match(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.score = new Score();
     }
 }
