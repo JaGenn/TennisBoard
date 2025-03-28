@@ -37,8 +37,8 @@ public class NewMatchServlet extends HttpServlet {
         Player pl1 = playerDAO.findByName(player1name).orElseGet(() -> playerDAO.save(new Player(player1name)));
         Player pl2 = playerDAO.findByName(player2name).orElseGet(() -> playerDAO.save(new Player(player2name)));
 
-        Match match = new Match(pl1, pl2);
         UUID uuid = UUID.randomUUID();
+        Match match = new Match(pl1, pl2);
 
         ongoingMatchesService.createNewMatch(uuid, match);
 

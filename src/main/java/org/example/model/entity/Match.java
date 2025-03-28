@@ -3,6 +3,7 @@ package org.example.model.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.model.Score;
 
 
@@ -26,6 +27,7 @@ public class Match {
 
     @ManyToOne
     @JoinColumn(name = "winner", referencedColumnName = "id", nullable = false)
+    @Setter
     private Player winner;
 
     @Transient

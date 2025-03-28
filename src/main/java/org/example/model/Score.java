@@ -14,6 +14,9 @@ public class Score {
     private int player2Games;
     private int player1Points;
     private int player2Points;
+    private int extraPoints1;
+    private int extraPoints2;
+    private boolean extraRoundIsActive;
 
     public Score() {
         this.player1Games = 0;
@@ -22,5 +25,8 @@ public class Score {
         this.player2Sets = 0;
         this.player1Points = 0;
         this.player2Points = 0;
+        this.extraPoints1 = 0;
+        this.extraPoints2 = 0;
+        this.extraRoundIsActive = false;
     }
 }

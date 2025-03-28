@@ -2,6 +2,7 @@ package org.example.service;
 
 
 import org.example.model.entity.Match;
+import org.example.model.entity.Player;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,6 +27,11 @@ public class OngoingMatchesService {
 
     public Match getCurrentMatch(UUID uuid) {
         return ongoingMatches.get(uuid);
+    }
+
+    public void deleteMatch(UUID uuid) {
+        ongoingMatches.remove(uuid);
+        System.out.println("Матч по ключу " + uuid + " удален из коллекции");
     }
 
 
