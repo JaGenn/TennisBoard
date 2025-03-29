@@ -12,7 +12,7 @@
         <h1>Теннисные матчи</h1>
         <nav class="nav-links">
             <a href="new-match" class="nav-link">Новый матч</a>
-            <a href="/" class="nav-link">Завершенные матчи</a>
+            <a href="matches" class="nav-link">Завершенные матчи</a>
         </nav>
     </div>
 </body>

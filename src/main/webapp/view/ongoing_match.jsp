@@ -8,7 +8,7 @@
 
 </head>
 <body>
-    <h1>Матч</h1>
+    <h1 style="text-align: center">Матч</h1>
 
     <table class="score-table">
         <thead>

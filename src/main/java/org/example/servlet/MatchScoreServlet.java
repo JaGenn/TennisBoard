@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.exception.InvalidParameterException;
+import org.example.model.FinishedMatchViewDto;
 import org.example.model.entity.Match;
 import org.example.service.FinishedMatchesService;
 import org.example.service.MatchScoreCalculationService;
@@ -50,7 +51,10 @@ public class MatchScoreServlet extends HttpServlet {
         } else {
             ongoingMatchesService.deleteMatch(uuid);
             finishedMatchesService.saveFinishedMatch(match);
-            resp.sendRedirect(req.getContextPath() + "/new-match");
+
+            FinishedMatchViewDto matchResultsView = finishedMatchesService.getResultDto();
+            req.setAttribute("result", matchResultsView);
+            req.getServletContext().getRequestDispatcher("/view/finished_match.jsp").forward(req, resp);
         }
     }
 
