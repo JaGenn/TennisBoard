@@ -1,0 +1,98 @@
+body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            padding: 0.5rem;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button, .clear-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .pagination {
+            margin-top: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .pagination a {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .pagination a:hover {
+            background-color: #f5f5f5;
+        }
+
+
+                .nav-button {
+                display: flex;
+                            gap: 1rem;
+                            justify-content: center;
+                            margin-top: 2rem;
+                    padding: 1rem 2rem;
+                    font-size: 1.1rem;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: white;
+                    transition: opacity 0.3s;
+                }
+
+                .nav-button:hover {
+                    opacity: 0.9;
+                }
+
+                #new-match {
+                            background-color: #3498db;
+                        }
