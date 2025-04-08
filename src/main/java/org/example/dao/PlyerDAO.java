@@ -10,5 +10,4 @@ public interface PlyerDAO {
 
     Optional<Player> findByName(String name);
 
-//    List<Player> getAll();
 }

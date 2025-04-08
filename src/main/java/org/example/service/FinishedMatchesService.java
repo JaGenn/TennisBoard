@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.Getter;
 import org.example.dao.MatchDAO;
 import org.example.dao.MatchDaoImpl;
 import org.example.model.FinishedMatchViewDto;
@@ -13,7 +14,6 @@ public class FinishedMatchesService {
 
     public void saveFinishedMatch(Match match) {
         matchDAO.save(match);
-        System.out.println("Имя победителя - " + match.getWinner().getName() + " - сервис");
     }
 
     public static void createResultDto(int id, Player player1, Player player2, int player1Sets, int player2Sets) {

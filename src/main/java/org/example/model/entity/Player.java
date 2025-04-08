@@ -11,6 +11,7 @@ import lombok.ToString;
 @Table(name = "Players")
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 public class Player {
 
@@ -19,7 +20,6 @@ public class Player {
     private int id;
 
     @Column(name = "name", unique = true, nullable = false)
-    @Setter
     private String name;
 
     public Player(String name) {

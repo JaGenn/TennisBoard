@@ -31,8 +31,6 @@ public class OngoingMatchesService {
 
     public void deleteMatch(UUID uuid) {
         ongoingMatches.remove(uuid);
-        System.out.println("Матч по ключу " + uuid + " удален из коллекции");
     }
-
 
 }

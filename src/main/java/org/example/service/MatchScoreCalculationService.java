@@ -1,7 +1,6 @@
 package org.example.service;
 
 import lombok.Getter;
-import org.example.model.FinishedMatchViewDto;
 import org.example.model.Score;
 import org.example.model.entity.Match;
 import org.example.model.entity.Player;
@@ -9,7 +8,6 @@ import org.example.model.entity.Player;
 public class MatchScoreCalculationService {
 
     private static final short COUNT_OF_SETS_TO_WIN = 2;
-    private FinishedMatchViewDto resultDto;
 
     private Match match;
     private Player player1;
@@ -122,6 +120,7 @@ public class MatchScoreCalculationService {
         } else {
             p2extra += 1;
         }
+
         int diff = Math.abs(p1extra - p2extra);
         if (diff >= 2) {
             makeBothPointsZero();
@@ -222,7 +221,5 @@ public class MatchScoreCalculationService {
         match.setWinner(winner);
         gameFinished = true;
     }
-
-
 
 }

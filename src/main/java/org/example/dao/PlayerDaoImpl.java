@@ -41,12 +41,5 @@ public class PlayerDaoImpl implements PlyerDAO {
         }
     }
 
-//    @Override
-//    public List<Player> getAll() {
-//        try (Session session = HibernateUtil.getSession()) {
-//            return session.createQuery("from Player", Player.class).getResultList();
-//        } catch (HibernateException e) {
-//            throw new DataBaseOperationException("Data base connection error");
-//        }
-//    }
+
 }
