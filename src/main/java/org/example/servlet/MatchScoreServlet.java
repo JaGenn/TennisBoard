@@ -11,6 +11,7 @@ import org.example.model.entity.Match;
 import org.example.service.FinishedMatchesService;
 import org.example.service.MatchScoreCalculationService;
 import org.example.service.OngoingMatchesService;
+import org.example.util.Validator;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -25,9 +26,9 @@ public class MatchScoreServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uuidParam = req.getParameter("uuid");
-        UUID uuid = convertToUUID(uuidParam);
+        UUID uuid = Validator.convertToUUID(req.getParameter("uuid"));
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
+
         req.setAttribute("matchId", uuid);
         req.setAttribute("player1", match.getPlayer1());
         req.setAttribute("player2", match.getPlayer2());
@@ -37,14 +38,14 @@ public class MatchScoreServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uuidParam = req.getParameter("uuid");
-        UUID uuid = convertToUUID(uuidParam);
+
+        UUID uuid = Validator.convertToUUID(req.getParameter("uuid"));
+        int id = Validator.convertIdToInt(req.getParameter("winnerId"));
 
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
         matchScoreCalculationService.initMatch(match);
 
-        String id = req.getParameter("winnerId");
-        matchScoreCalculationService.calculate(convertIdToInt(id));
+        matchScoreCalculationService.calculate(id);
 
         if (!matchScoreCalculationService.isGameFinished()) {
             resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);
@@ -55,30 +56,6 @@ public class MatchScoreServlet extends HttpServlet {
             FinishedMatchViewDto matchResultsView = finishedMatchesService.getResultDto();
             req.setAttribute("result", matchResultsView);
             req.getServletContext().getRequestDispatcher("/view/finished_match.jsp").forward(req, resp);
-        }
-    }
-
-    private UUID convertToUUID(String uuid) {
-
-        if (uuid == null || uuid.isBlank()) {
-            throw new InvalidParameterException("Missing parameter - uuid");
-        }
-
-        try {
-            return UUID.fromString(uuid);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidParameterException("Invalid UUID format");
-        }
-    }
-
-    private int convertIdToInt(String id) {
-        if (id == null || id.isBlank()) {
-            throw new InvalidParameterException("Missing parameter - player id");
-        }
-        try {
-            return Integer.parseInt(id);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidParameterException("Invalid player id format");
         }
     }
 }
