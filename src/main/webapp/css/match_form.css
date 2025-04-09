@@ -63,3 +63,40 @@ body {
         button:hover {
             background-color: #219a52;
         }
+
+        .formRow {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .error {
+            margin-top: 5px;
+                background: #ffe3e6;
+                border-radius: 4px;
+                color: #d90429;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                animation: slideIn 0.3s ease-out;
+                position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Для общей ошибки (когда имена совпадают) */
+        .error:not(.formRow .error) {
+            width: 100%;
+            justify-content: center;
+        }

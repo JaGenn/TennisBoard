@@ -1,9 +1,8 @@
 package org.example.service;
 
-import lombok.Getter;
 import org.example.dao.MatchDAO;
 import org.example.dao.MatchDaoImpl;
-import org.example.model.FinishedMatchViewDto;
+import org.example.model.dto.FinishedMatchViewDto;
 import org.example.model.entity.Match;
 import org.example.model.entity.Player;
 

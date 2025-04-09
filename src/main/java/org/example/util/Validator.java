@@ -6,29 +6,6 @@ import java.util.UUID;
 
 public class Validator {
 
-    public static void validatePlayerNames(String firstPName, String secondPName) {
-
-        if (firstPName == null || firstPName.isBlank()) {
-            throw new InvalidParameterException("Missing parameter - player 1 name");
-        }
-
-        if (secondPName == null || secondPName.isBlank()) {
-            throw new InvalidParameterException("Missing parameter - player 2 name");
-        }
-
-        if (!firstPName.chars().allMatch(Character::isLetter)) {
-            throw new InvalidParameterException("Player 1 name should contain only letters!");
-        }
-
-        if (!secondPName.chars().allMatch(Character::isLetter)) {
-            throw new InvalidParameterException("Player 2 name should contain only letters!");
-        }
-
-        if (firstPName.equals(secondPName)) {
-            throw new InvalidParameterException("Player names can't be same");
-        }
-    }
-
     public static int convertIdToInt(String id) {
         if (id == null || id.isBlank()) {
             throw new InvalidParameterException("Missing parameter - player id");

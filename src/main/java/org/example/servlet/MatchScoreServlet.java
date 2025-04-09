@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.exception.NotFoundException;
-import org.example.model.FinishedMatchViewDto;
+import org.example.model.dto.FinishedMatchViewDto;
 import org.example.model.entity.Match;
 import org.example.service.FinishedMatchesService;
 import org.example.service.MatchScoreCalculationService;
