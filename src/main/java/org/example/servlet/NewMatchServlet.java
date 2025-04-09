@@ -45,4 +45,3 @@ public class NewMatchServlet extends HttpServlet {
     }
 
 }
-
