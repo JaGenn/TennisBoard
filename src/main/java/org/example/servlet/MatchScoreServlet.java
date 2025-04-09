@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.exception.InvalidParameterException;
+import org.example.exception.NotFoundException;
 import org.example.model.FinishedMatchViewDto;
 import org.example.model.entity.Match;
 import org.example.service.FinishedMatchesService;
@@ -28,6 +28,7 @@ public class MatchScoreServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = Validator.convertToUUID(req.getParameter("uuid"));
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
+        if (match == null) throw new NotFoundException("UUID of match doesn't present in request!");
 
         req.setAttribute("matchId", uuid);
         req.setAttribute("player1", match.getPlayer1());
@@ -43,6 +44,8 @@ public class MatchScoreServlet extends HttpServlet {
         int id = Validator.convertIdToInt(req.getParameter("winnerId"));
 
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
+        if (match == null) throw new NotFoundException("UUID of match doesn't present in request!");
+
         matchScoreCalculationService.initMatch(match);
 
         matchScoreCalculationService.calculate(id);
