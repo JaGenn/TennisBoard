@@ -5,10 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PlayerNameHasErrorDto {
-    private boolean playerOneNameNotValid = false;
-    private boolean playerTwoNameNotValid = false;
-    private boolean playerNamesAreSame = false;
+public class PlayerNamesHasErrorDto {
+
+    private boolean playerOneNameNotValid;
+    private boolean playerTwoNameNotValid;
+    private boolean playerNamesAreSame;
     private String playerOneError;
     private String playerTwoError;
     private String commonError;

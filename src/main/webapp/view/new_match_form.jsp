@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     <label for="player1">Имя игрока 1:</label>
-                    <input type="text" id="player1" name="player1" required placeholder="Введите имя">
+                    <input type="text" id="player1" value="${playerOneName}" name="player1" required placeholder="Введите имя">
                 </div>
                 <div class="formRow">
                     <c:if test="${errors.playerOneNameNotValid}">
@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     <label for="player2">Имя игрока 2:</label>
-                    <input type="text" id="player2" name="player2" required placeholder="Введите имя">
+                    <input type="text" id="player2" value="${playerTwoName}" name="player2" required placeholder="Введите имя">
                 </div>
                 <div class="formRow">
                     <c:if test="${errors.playerTwoNameNotValid}">

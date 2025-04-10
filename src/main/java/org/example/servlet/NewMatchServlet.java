@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.dao.PlayerDaoImpl;
 import org.example.dao.PlyerDAO;
-import org.example.model.dto.PlayerNameHasErrorDto;
+import org.example.model.dto.PlayerNamesHasErrorDto;
 import org.example.model.entity.Match;
 import org.example.model.entity.Player;
 import org.example.service.OngoingMatchesService;
@@ -20,11 +20,11 @@ public class NewMatchServlet extends HttpServlet {
 
     private PlyerDAO playerDAO = new PlayerDaoImpl();
     private final OngoingMatchesService ongoingMatchesService = OngoingMatchesService.getInstance();
-    private PlayerNameHasErrorDto errorDto;
+    private PlayerNamesHasErrorDto errorDto;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getServletContext().getRequestDispatcher("/view/new_match_form.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/new_match_form.jsp").forward(req, resp);
     }
 
     @Override
@@ -35,8 +35,11 @@ public class NewMatchServlet extends HttpServlet {
         boolean namesNotValid = validatePlayerNames(player1name, player2name);
 
         if (namesNotValid) {
+            req.setAttribute("playerOneName", player1name); // Возвращаем оба имени в формы
+            req.setAttribute("playerTwoName", player2name); // чтобы сохранить их непустыми
             req.setAttribute("errors", errorDto);
-            req.getServletContext().getRequestDispatcher("/view/new_match_form.jsp").forward(req, resp);
+            req.getRequestDispatcher("/view/new_match_form.jsp").forward(req, resp);
+
         } else {
 
             Player pl1 = playerDAO.findByName(player1name).orElseGet(() -> playerDAO.save(new Player(player1name)));
@@ -56,7 +59,7 @@ public class NewMatchServlet extends HttpServlet {
     private boolean validatePlayerNames(String firstPName, String secondPName) {
 
         boolean hasErrors = false;
-        errorDto = new PlayerNameHasErrorDto();
+        errorDto = new PlayerNamesHasErrorDto();
 
         if (!firstPName.chars().allMatch(Character::isLetter)) {
             errorDto.setPlayerOneNameNotValid(true);
