@@ -26,3 +26,5 @@
 3. Подсчёт очков в текущем матче
 
 Полное ТЗ проекта - https://zhukovsd.github.io/java-backend-learning-course/projects/tennis-scoreboard/
+
+Чтобы запустить проект у себя локально достаточно его склонировать к себе в IDEA. Для локального развертывания я использовал плагин SmartTomcat. Проект запускается через путь - lacalhost:8080/tennis_board/
