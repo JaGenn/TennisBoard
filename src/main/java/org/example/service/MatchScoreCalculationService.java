@@ -7,7 +7,7 @@ import org.example.model.entity.Player;
 
 public class MatchScoreCalculationService {
 
-    private static final short COUNT_OF_SETS_TO_WIN = 2;
+    private final short COUNT_OF_SETS_TO_WIN = 2;
 
     private Match match;
     private Player player1;
