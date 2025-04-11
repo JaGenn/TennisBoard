@@ -27,4 +27,4 @@
 
 Полное ТЗ проекта - https://zhukovsd.github.io/java-backend-learning-course/projects/tennis-scoreboard/
 
-Чтобы запустить проект у себя локально достаточно его склонировать к себе в IDEA. Для локального развертывания я использовал плагин SmartTomcat. Проект запускается через путь - lacalhost:8080/tennis_board/
+Чтобы запустить проект у себя локально достаточно его склонировать к себе в IDEA. Для локального развертывания я использовал плагин SmartTomcat и Tomcat 11. Проект запускается через путь - lacalhost:8080/tennis_board/
