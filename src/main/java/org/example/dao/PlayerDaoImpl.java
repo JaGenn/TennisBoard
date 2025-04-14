@@ -24,7 +24,7 @@ public class PlayerDaoImpl implements PlyerDAO {
         } catch (ConstraintViolationException e) {
             throw new PlayerAlreadyExistsException("Player with id " + player.getId() + " already exists in database");
         } catch (HibernateError e) {
-            throw new DataBaseOperationException(e.getMessage());
+            throw new DataBaseOperationException("Failed to save player with name " + player.getName() + " to database");
         }
         return player;
     }
@@ -37,7 +37,7 @@ public class PlayerDaoImpl implements PlyerDAO {
                     .setParameter("name", name).uniqueResultOptional();
 
         } catch (HibernateException e) {
-            throw new NotFoundException("There is no player with name " + name + " in data base");
+            throw new NotFoundException("There is no player with name " + name + " in database");
         }
     }
 

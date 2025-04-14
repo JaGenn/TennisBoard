@@ -19,7 +19,7 @@ public class MatchDaoImpl implements MatchDAO {
             session.persist(match);
             session.getTransaction().commit();
         } catch (HibernateError e) {
-            throw new DataBaseOperationException(e.getMessage());
+            throw new DataBaseOperationException("Failed to save match to database");
         }
     }
 
@@ -32,7 +32,7 @@ public class MatchDaoImpl implements MatchDAO {
                     .setMaxResults(size)
                     .getResultList();
         } catch (HibernateError e) {
-            throw new DataBaseOperationException(e.getMessage());
+            throw new DataBaseOperationException("Failed to get matches from database");
         }
     }
 
@@ -42,7 +42,7 @@ public class MatchDaoImpl implements MatchDAO {
             return session.createQuery("select count(*) from Match", Long.class)
                     .getSingleResult();
         } catch (HibernateError e) {
-            throw new DataBaseOperationException(e.getMessage());
+            throw new DataBaseOperationException("Failed to get total matches from database");
         }
     }
 
@@ -55,7 +55,7 @@ public class MatchDaoImpl implements MatchDAO {
                     .setFirstResult((page - 1) * size)
                     .setMaxResults(size).getResultList();
         } catch (HibernateError e) {
-            throw new DataBaseOperationException(e.getMessage());
+            throw new DataBaseOperationException("Failed to get matches from database");
         }
     }
 
@@ -66,6 +66,8 @@ public class MatchDaoImpl implements MatchDAO {
             return session.createQuery(hql, Long.class)
                     .setParameter("playerName", playerName)
                     .getSingleResult();
+        } catch (HibernateError e) {
+            throw new DataBaseOperationException("Failed to get total matches from database");
         }
     }
 }
