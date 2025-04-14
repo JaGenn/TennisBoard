@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.dao.MatchDAO;
 import org.example.dao.MatchDaoImpl;
 import org.example.model.entity.Match;
-import org.example.util.Validator;
+import org.example.util.MappingUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,8 +24,8 @@ public class MatchesServlet extends HttpServlet {
         List<Match> matches;
         long totalMatchesCount;
 
-        int page = Validator.parsePageNumber(req.getParameter("page"));
-        String playerName = Validator.validateName(req.getParameter("filter_by_player_name"));
+        int page = MappingUtil.parsePageNumber(req.getParameter("page"));
+        String playerName = validateName(req.getParameter("filter_by_player_name"));
 
         if (playerName == null) {
             matches = matchDAO.getMatches(page, SIZE_OF_PAGES);
@@ -42,6 +42,17 @@ public class MatchesServlet extends HttpServlet {
         req.setAttribute("totalPages", totalPages);
         req.setAttribute("filterPlayerName", playerName);
         req.getRequestDispatcher("view/matches.jsp").forward(req, resp);
+    }
+
+    private String validateName(String name) {
+        if (name == null || name.isBlank()) {
+            return null;
+        }
+
+        if (!name.chars().allMatch(Character::isLetter)) {
+            return null;
+        }
+        return name;
     }
 
 }

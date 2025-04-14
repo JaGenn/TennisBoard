@@ -11,7 +11,7 @@ import org.example.model.entity.Match;
 import org.example.service.FinishedMatchesService;
 import org.example.service.MatchScoreCalculationService;
 import org.example.service.OngoingMatchesService;
-import org.example.util.Validator;
+import org.example.util.MappingUtil;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -26,7 +26,7 @@ public class MatchScoreServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UUID uuid = Validator.convertToUUID(req.getParameter("uuid"));
+        UUID uuid = MappingUtil.convertToUUID(req.getParameter("uuid"));
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
         if (match == null) throw new NotFoundException("UUID of match doesn't present in request!");
 
@@ -40,8 +40,8 @@ public class MatchScoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UUID uuid = Validator.convertToUUID(req.getParameter("uuid"));
-        int id = Validator.convertIdToInt(req.getParameter("winnerId"));
+        UUID uuid = MappingUtil.convertToUUID(req.getParameter("uuid"));
+        int id = MappingUtil.convertIdToInt(req.getParameter("winnerId"));
 
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
         if (match == null) throw new NotFoundException("UUID of match doesn't present in request!");

@@ -4,7 +4,7 @@ import org.example.exception.InvalidParameterException;
 
 import java.util.UUID;
 
-public class Validator {
+public class MappingUtil {
 
     public static int convertIdToInt(String id) {
         if (id == null || id.isBlank()) {
@@ -34,29 +34,18 @@ public class Validator {
         }
     }
 
-    public static String validateName(String name) {
-        if (name == null || name.isBlank()) {
-            return null;
-        }
-
-        if (!name.chars().allMatch(Character::isLetter)) {
-            return null;
-        }
-        return name;
-    }
-
     public static int parsePageNumber(String pageParam) {
         if (pageParam == null || pageParam.isBlank()) {
             return 1;
         }
+
         try {
+
             int numPage = Integer.parseInt(pageParam);
-            if (numPage <= 0) {
-                return 1;
-            }
-            return numPage;
+            return (numPage <= 0) ? 1 : numPage;
+
         } catch (IllegalArgumentException e) {
-            throw new InvalidParameterException("page can be only digit");
+            throw new InvalidParameterException("Page can be only digit");
         }
     }
 }

@@ -99,12 +99,12 @@ public class MatchScoreCalculationService {
             player2Sets += 1;
         }
 
-        if (player1Sets == COUNT_OF_SETS_TO_WIN) {
+        if (player1Sets >= COUNT_OF_SETS_TO_WIN) {
             FinishedMatchesService.createResultDto(id, player1, player2, player1Sets, player2Sets);
             makeBothSetsZero();
             finish(player1);
         }
-        if (player2Sets == COUNT_OF_SETS_TO_WIN) {
+        if (player2Sets >= COUNT_OF_SETS_TO_WIN) {
             FinishedMatchesService.createResultDto(id, player1, player2, player1Sets, player2Sets);
             makeBothSetsZero();
             finish(player2);
