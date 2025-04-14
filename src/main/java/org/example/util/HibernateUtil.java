@@ -15,8 +15,7 @@ public class HibernateUtil {
 
     static {
         try {
-            sessionFactory = new Configuration().configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(Match.class).addAnnotatedClass(Player.class).buildSessionFactory();
+            sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError("Initial SessionFactory creation failed." + ex);
         }
