@@ -156,9 +156,11 @@ class MatchScoreCalculationServiceTest {
             win3Points(1);
             win3Points(2);
             win3Points(2);
-            service.calculate(1);
-            service.calculate(1);
 
+            service.calculate(1);
+            assertTrue(score.isExtraRoundIsActive());
+
+            service.calculate(1);
             assertFalse(score.isExtraRoundIsActive());
             assertEquals(1, score.getPlayer1Sets());
 
