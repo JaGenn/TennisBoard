@@ -4,16 +4,15 @@ import org.example.exception.DataBaseOperationException;
 import org.example.model.entity.Match;
 import org.example.util.HibernateUtil;
 import org.hibernate.HibernateError;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 
 import java.util.List;
 
-public class MatchDaoImpl implements MatchDAO {
+public class MatchDAOImpl implements MatchDAO {
 
     @Override
-    public void save(Match match) {
+    public Match save(Match match) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             session.persist(match);
@@ -21,6 +20,7 @@ public class MatchDaoImpl implements MatchDAO {
         } catch (HibernateError e) {
             throw new DataBaseOperationException("Failed to save match to database");
         }
+        return match;
     }
 
 

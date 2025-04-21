@@ -29,8 +29,6 @@ class MatchScoreCalculationServiceTest {
 
         match = new Match(player1, player2);
         score = match.getScore();
-
-        service.initMatch(match);
     }
 
     @Nested
@@ -39,11 +37,11 @@ class MatchScoreCalculationServiceTest {
         @Test
         @DisplayName("Player 1 earns points: 15 → 30 → 40")
         public void player1WinsPoint() {
-            service.calculate(1);
+            service.calculate(1, match);
             assertEquals(15, score.getPlayer1Points());
-            service.calculate(1);
+            service.calculate(1, match);
             assertEquals(30, score.getPlayer1Points());
-            service.calculate(1);
+            service.calculate(1, match);
             assertEquals(40, score.getPlayer1Points());
         }
 
@@ -94,7 +92,7 @@ class MatchScoreCalculationServiceTest {
         public void deuceIsActivatedAt40_40() {
             win3Points(1);
             win3Points(2);
-            service.calculate(1);
+            service.calculate(1, match);
 
             assertTrue(score.isExtraRoundIsActive());
             assertEquals(1, score.getExtraPoints1());
@@ -105,8 +103,8 @@ class MatchScoreCalculationServiceTest {
         public void playerWinsGameAfterGainingTwoPointLeadInDeuce() {
             win3Points(1);
             win3Points(2);
-            service.calculate(1);
-            service.calculate(1);
+            service.calculate(1, match);
+            service.calculate(1, match);
 
             assertFalse(score.isExtraRoundIsActive());
             assertEquals(1, score.getPlayer1Games());
@@ -118,10 +116,10 @@ class MatchScoreCalculationServiceTest {
             win3Points(1);
             win3Points(2);
 
-            service.calculate(1);
+            service.calculate(1, match);
             assertTrue(score.isExtraRoundIsActive());
 
-            service.calculate(1);
+            service.calculate(1, match);
             assertEquals(1, score.getPlayer1Games());
             assertFalse(score.isExtraRoundIsActive());
         }
@@ -157,10 +155,10 @@ class MatchScoreCalculationServiceTest {
             win3Points(2);
             win3Points(2);
 
-            service.calculate(1);
+            service.calculate(1, match);
             assertTrue(score.isExtraRoundIsActive());
 
-            service.calculate(1);
+            service.calculate(1, match);
             assertFalse(score.isExtraRoundIsActive());
             assertEquals(1, score.getPlayer1Sets());
 
@@ -174,12 +172,12 @@ class MatchScoreCalculationServiceTest {
         @Test
         @DisplayName("Points reset after game is won")
         public void pointsResetAfterGameWin() {
-            service.calculate(1);
-            service.calculate(1);
-            service.calculate(1);
+            service.calculate(1, match);
+            service.calculate(1, match);
+            service.calculate(1, match);
             assertEquals(40, score.getPlayer1Points());
 
-            service.calculate(1);
+            service.calculate(1, match);
             assertEquals(0, score.getPlayer1Points());
             assertEquals(0, score.getPlayer2Points());
             assertEquals(1, score.getPlayer1Games());
@@ -220,16 +218,16 @@ class MatchScoreCalculationServiceTest {
     }
 
     private void win1Game(int id) {
-        service.calculate(id);
-        service.calculate(id);
-        service.calculate(id);
-        service.calculate(id);
+        service.calculate(id, match);
+        service.calculate(id, match);
+        service.calculate(id, match);
+        service.calculate(id, match);
     }
 
     private void win3Points(int id) {
-        service.calculate(id);
-        service.calculate(id);
-        service.calculate(id);
+        service.calculate(id, match);
+        service.calculate(id, match);
+        service.calculate(id, match);
     }
 
     private void win5Games(int id) {

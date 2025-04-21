@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MatchDAO {
 
-    void save(Match match);
+    Match save(Match match);
 
     List<Match> getMatches(int page, int size);
 

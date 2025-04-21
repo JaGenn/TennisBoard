@@ -4,7 +4,7 @@ import org.example.model.entity.Player;
 
 import java.util.Optional;
 
-public interface PlyerDAO {
+public interface PlayerDAO {
 
     Player save(Player player);
 

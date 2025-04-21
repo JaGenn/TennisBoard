@@ -5,8 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.dao.PlayerDaoImpl;
-import org.example.dao.PlyerDAO;
+import org.example.dao.PlayerDAOImpl;
+import org.example.dao.PlayerDAO;
 import org.example.model.dto.PlayerNamesHasErrorDto;
 import org.example.model.entity.Match;
 import org.example.model.entity.Player;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
 
-    private PlyerDAO playerDAO = new PlayerDaoImpl();
+    private PlayerDAO playerDAO = new PlayerDAOImpl();
     private final OngoingMatchesService ongoingMatchesService = OngoingMatchesService.getInstance();
     private PlayerNamesHasErrorDto errorDto;
 

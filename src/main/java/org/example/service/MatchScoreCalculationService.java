@@ -23,26 +23,27 @@ public class MatchScoreCalculationService {
     private int p2extra = 0;
     @Getter
     private boolean gameFinished;
-    private boolean deyusIsActive = false;
+    private boolean deuceIsActive = false;
     private boolean tieBreakIsActive = false;
 
-    public void initMatch(Match match) {
-        this.match = match;
-        this.player1 = match.getPlayer1();
-        this.player2 = match.getPlayer2();
-        this.score = match.getScore();
-        this.gameFinished = false;
-    }
+    public void calculate(int id, Match match) {
+        initMatch(match);
 
-    public void calculate(int id) {
-        // deyus - это ситуация когда счет по очкам 40-40 и для гейма надо быть на 2 очка впереди
-        if (deyusIsActive) {
-            deyus(id);
+        if (deuceIsActive) {
+            deuce(id);  // deuce - это ситуация когда счет по очкам 40-40 и для гейма надо быть на 2 очка впереди
         } else if (tieBreakIsActive) {
             tieBreak(id);
         } else {
             addPoints(id);
         }
+    }
+
+    private void initMatch(Match match) {
+        this.match = match;
+        this.player1 = match.getPlayer1();
+        this.player2 = match.getPlayer2();
+        this.score = match.getScore();
+        this.gameFinished = false;
     }
 
     // Начисление очков
@@ -59,9 +60,9 @@ public class MatchScoreCalculationService {
                 makeBothPointsZero();
                 addGames(id);
             } else {
-                deyusIsActive = true;
+                deuceIsActive = true;
                 score.setExtraRoundIsActive(true);
-                deyus(id);
+                deuce(id);
             }
         }
         increasePoints(player1Points, player2Points);
@@ -100,21 +101,21 @@ public class MatchScoreCalculationService {
         }
 
         if (player1Sets >= COUNT_OF_SETS_TO_WIN) {
-            FinishedMatchesService.createResultDto(id, player1, player2, player1Sets, player2Sets);
-            makeBothSetsZero();
             finish(player1);
         }
         if (player2Sets >= COUNT_OF_SETS_TO_WIN) {
-            FinishedMatchesService.createResultDto(id, player1, player2, player1Sets, player2Sets);
-            makeBothSetsZero();
             finish(player2);
         }
 
         score.setPlayer1Sets(player1Sets);
         score.setPlayer2Sets(player2Sets);
+
+        if (gameFinished) {
+            makeBothSetsZero();
+        }
     }
 
-    private void deyus(int id) {
+    private void deuce(int id) {
         if (player1.getId() == id) {
             p1extra += 1;
         } else {
@@ -124,7 +125,7 @@ public class MatchScoreCalculationService {
         int diff = Math.abs(p1extra - p2extra);
         if (diff >= 2) {
             makeBothPointsZero();
-            offDeyus();
+            offDeuce();
             addGames(id);
         }
 
@@ -151,8 +152,8 @@ public class MatchScoreCalculationService {
         score.setExtraPoints2(p2extra);
     }
 
-    private void offDeyus() {
-        deyusIsActive = false;
+    private void offDeuce() {
+        deuceIsActive = false;
         p1extra = 0;
         p2extra = 0;
         score.setExtraRoundIsActive(false);
@@ -186,8 +187,6 @@ public class MatchScoreCalculationService {
     private void makeBothSetsZero() {
         player1Sets = 0;
         player2Sets = 0;
-        score.setPlayer1Sets(player1Sets);
-        score.setPlayer2Sets(player2Sets);
     }
 
     private void increasePoints(int player1Points, int player2Points) {

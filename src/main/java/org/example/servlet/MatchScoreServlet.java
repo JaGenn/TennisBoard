@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.exception.NotFoundException;
+import org.example.model.Score;
 import org.example.model.dto.FinishedMatchViewDto;
 import org.example.model.entity.Match;
 import org.example.service.FinishedMatchesService;
@@ -28,7 +29,9 @@ public class MatchScoreServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = MappingUtil.convertToUUID(req.getParameter("uuid"));
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
-        if (match == null) throw new NotFoundException("UUID of match doesn't present in request!");
+        if (match == null) {
+            throw new NotFoundException("UUID of match doesn't present in request!");
+        }
 
         req.setAttribute("matchId", uuid);
         req.setAttribute("player1", match.getPlayer1());
@@ -44,19 +47,26 @@ public class MatchScoreServlet extends HttpServlet {
         int id = MappingUtil.convertIdToInt(req.getParameter("winnerId"));
 
         Match match = ongoingMatchesService.getCurrentMatch(uuid);
-        if (match == null) throw new NotFoundException("UUID of match doesn't present in request!");
+        if (match == null) {
+            throw new NotFoundException("UUID of match doesn't present in request!");
+        }
 
-        matchScoreCalculationService.initMatch(match);
-
-        matchScoreCalculationService.calculate(id);
+        matchScoreCalculationService.calculate(id, match);
 
         if (!matchScoreCalculationService.isGameFinished()) {
             resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);
         } else {
             ongoingMatchesService.deleteMatch(uuid);
-            finishedMatchesService.saveFinishedMatch(match);
+            Match finishedMatch = finishedMatchesService.saveFinishedMatch(match);
 
-            FinishedMatchViewDto matchResultsView = finishedMatchesService.getResultDto();
+            FinishedMatchViewDto matchResultsView = new FinishedMatchViewDto(
+                    finishedMatch.getPlayer1().getName(),
+                    finishedMatch.getPlayer2().getName(),
+                    finishedMatch.getWinner().getName(),
+                    finishedMatch.getScore().getPlayer1Sets(),
+                    finishedMatch.getScore().getPlayer2Sets()
+            );
+
             req.setAttribute("result", matchResultsView);
             req.getServletContext().getRequestDispatcher("/view/finished_match.jsp").forward(req, resp);
         }

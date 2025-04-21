@@ -6,7 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.dao.MatchDAO;
-import org.example.dao.MatchDaoImpl;
+import org.example.dao.MatchDAOImpl;
+import org.example.exception.InvalidParameterException;
 import org.example.model.entity.Match;
 import org.example.util.MappingUtil;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @WebServlet("/matches")
 public class MatchesServlet extends HttpServlet {
 
-    private final MatchDAO matchDAO = new MatchDaoImpl();
+    private final MatchDAO matchDAO = new MatchDAOImpl();
     private final int SIZE_OF_PAGES = 5;
 
     @Override
@@ -50,7 +51,7 @@ public class MatchesServlet extends HttpServlet {
         }
 
         if (!name.chars().allMatch(Character::isLetter)) {
-            return null;
+            throw new InvalidParameterException("Player name may contain only letters");
         }
         return name;
     }
