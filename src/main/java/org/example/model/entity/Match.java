@@ -25,9 +25,9 @@ public class Match {
     @JoinColumn(name = "player2", referencedColumnName = "id", nullable = false)
     private Player player2;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "winner", referencedColumnName = "id", nullable = false)
-    @Setter
     private Player winner;
 
     @Transient
