@@ -27,7 +27,7 @@ public class MatchDAOImpl implements MatchDAO {
     @Override
     public List<Match> getMatches(int page, int size) {
         try (Session session = HibernateUtil.getSession()) {
-            return session.createQuery("from Match", Match.class)
+            return session.createQuery("from Match ORDER BY id DESC", Match.class)
                     .setFirstResult((page - 1) * size)
                     .setMaxResults(size)
                     .getResultList();
@@ -49,7 +49,7 @@ public class MatchDAOImpl implements MatchDAO {
     @Override
     public List<Match> getMatches(int page, int size, String playerName) {
         try (Session session = HibernateUtil.getSession()) {
-            String hql = "FROM Match m WHERE (player1.name = :playerName OR player2.name = :playerName)";
+            String hql = "FROM Match m WHERE (player1.name = :playerName OR player2.name = :playerName) ORDER BY id DESC";
             return session.createQuery(hql, Match.class)
                     .setParameter("playerName", playerName)
                     .setFirstResult((page - 1) * size)
