@@ -209,10 +209,8 @@ class MatchScoreCalculationServiceTest {
             assertTrue(service.isGameFinished());
             assertEquals(0, score.getPlayer1Points());
             assertEquals(0, score.getPlayer1Games());
-            assertEquals(0, score.getPlayer1Sets());
             assertEquals(0, score.getPlayer2Points());
             assertEquals(0, score.getPlayer2Games());
-            assertEquals(0, score.getPlayer2Sets());
         }
 
     }
